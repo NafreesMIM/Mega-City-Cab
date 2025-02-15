@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Signup - Mega City Cab</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <script>
+        function validateSignup() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let nic = document.getElementById("nic").value;
+            let nicPattern = /^(?:\d{9}[vVxX]|\d{12})$/; // Allows 9 digits + V/v/x/X OR 12 digits
+
+            if (!nicPattern.test(nic)) {
+                alert("Invalid NIC format! Use 9 digits + 'V' or 12-digit format.");
+                return false;
+            }
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Customer Signup</h2>
+        <form action="SignupCustomerServlet" method="post" onsubmit="return validateSignup();">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br><br>
+
+            <label for="nic">NIC:</label>
+            <input type="text" id="nic" name="nic" required placeholder="Enter NIC (e.g., 123456789V or 200012345678)">
+            <br><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+            <br><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="Enter 10-digit phone number">
+            <br><br>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br><br>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <br><br>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="login.jsp">Login here</a></p>
+    </div>
+</body>
+</html>
