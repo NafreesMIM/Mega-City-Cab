@@ -10,17 +10,29 @@
  */
 package models;
 
+
 public class Driver {
-    private int id;
+    private int driverId;
     private String name;
     private String licenseNumber;
-    private boolean available;
+    private String contact;
 
-    public Driver(int id, String name, String licenseNumber, boolean available) {
-        this.id = id;
+    public Driver() {}
+
+    public Driver(int driverId, String name, String licenseNumber, String contact) {
+        this.driverId = driverId;
         this.name = name;
         this.licenseNumber = licenseNumber;
-        this.available = available;
+        this.contact = contact;
     }
-    // Getters and Setters
+
+    // Getters and setters
+    public int getDriverId() { return driverId; }
+    public void setDriverId(int driverId) { this.driverId = driverId; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getLicenseNumber() { return licenseNumber; }
+    public void setLicenseNumber(String licenseNumber) { this.licenseNumber = licenseNumber; }
+    public String getContact() { return contact; }
+    public void setContact(String contact) { this.contact = contact; }
 }

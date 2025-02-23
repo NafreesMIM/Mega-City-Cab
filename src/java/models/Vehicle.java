@@ -10,17 +10,32 @@
  */
 package models;
 
-public class Car {
-    private int id;
-    private String model;
-    private String plateNumber;
-    private boolean available;
 
-    public Car(int id, String model, String plateNumber, boolean available) {
-        this.id = id;
+public class Vehicle {
+    private int vehicleId;
+    private String licensePlate;
+    private String model;
+    private String brand;
+    private String status; // e.g., available, booked
+
+    public Vehicle() {}
+
+    public Vehicle(int vehicleId, String licensePlate, String model, String brand, String status) {
+        this.vehicleId = vehicleId;
+        this.licensePlate = licensePlate;
         this.model = model;
-        this.plateNumber = plateNumber;
-        this.available = available;
+        this.brand = brand;
+        this.status = status;
     }
-    // Getters and Setters
+    // Getters and setters
+    public int getVehicleId() { return vehicleId; }
+    public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
+    public String getLicensePlate() { return licensePlate; }
+    public void setLicensePlate(String licensePlate) { this.licensePlate = licensePlate; }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+    public String getBrand() { return brand; }
+    public void setBrand(String brand) { this.brand = brand; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

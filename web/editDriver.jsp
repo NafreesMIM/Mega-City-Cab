@@ -1,34 +1,38 @@
 <%-- 
     Document   : editDriver
-    Created on : Feb 4, 2025, 12:24:37?PM
+    Created on : Feb 23, 2025, 11:43:44 AM
     Author     : Moham
 --%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="models.Driver" %>
 <html>
 <head>
-    <title>Edit Driver - Mega City Cab</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Edit Driver - Admin</title>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Edit Driver Details</h2>
-        <form action="updateDriverServlet" method="post">
-            <input type="hidden" name="id" value="${driver.id}">
-            <label for="name">Driver Name:</label>
-            <input type="text" id="name" name="name" value="${driver.name}" required>
-            <br><br>
-            <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone" value="${driver.phone}" required>
-            <br><br>
-            <label for="carAssigned">Car Assigned:</label>
-            <input type="text" id="carAssigned" name="carAssigned" value="${driver.carAssigned}" required>
-            <br><br>
-            <button type="submit">Update Driver</button>
-        </form>
-    </div>
+    <h2>Edit Driver</h2>
+    <%
+        Driver driver = (Driver) request.getAttribute("driver");
+        if(driver == null) {
+    %>
+        <p>Driver not found.</p>
+    <%
+        } else {
+    %>
+    <form action="driverCRUD" method="post">
+        <input type="hidden" name="action" value="update" />
+        <input type="hidden" name="driverId" value="<%= driver.getDriverId() %>" />
+        Name: <input type="text" name="name" value="<%= driver.getName() %>" required /><br/>
+        License Number: <input type="text" name="licenseNumber" value="<%= driver.getLicenseNumber() %>" required /><br/>
+        Contact: <input type="text" name="contact" value="<%= driver.getContact() %>" required /><br/>
+        <input type="submit" value="Update Driver" />
+    </form>
+    <%
+        }
+    %>
+    <br/>
+    <a href="driverCRUD?action=list">Back to Manage Drivers</a>
 </body>
 </html>
 

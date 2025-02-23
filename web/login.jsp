@@ -1,31 +1,26 @@
 <%-- 
     Document   : login
-    Created on : Feb 4, 2025, 12:19:14?PM
+    Created on : Feb 23, 2025, 11:32:24 AM
     Author     : Moham
 --%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <title>Login - Mega City Cab</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="form-container">
-        <h2>Login</h2>
-        <form action="LoginServlet" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br><br>
-            <button type="submit">Login</button></br>
-            <label>Already don't have an account?<a href="index.html">Sign Up Here..</a></label>
-
-        </form>
+    <h2>Login</h2>
+    <form action="login" method="post">
+        Username: <input type="text" name="username" required /><br/>
+        Password: <input type="password" name="password" required /><br/>
+        <input type="submit" value="Login" />
+    </form>
+    <div style="color:red;">
+        ${error}
     </div>
+    <br/>
+    <a href="registration.jsp">Register as a New Customer</a>
 </body>
 </html>
 

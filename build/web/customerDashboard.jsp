@@ -1,27 +1,30 @@
 <%-- 
     Document   : customerDashboard
-    Created on : Feb 4, 2025, 12:20:32?PM
+    Created on : Feb 23, 2025, 11:35:57?AM
     Author     : Moham
 --%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page import="models.User" %>
+<%
+    User user = (User) session.getAttribute("user");
+    if(user == null || !user.getRole().equalsIgnoreCase("customer")){
+         response.sendRedirect("login.jsp");
+         return;
+    }
+%>
 <html>
 <head>
     <title>Customer Dashboard - Mega City Cab</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="viewBookingHistory.jsp">View Booking History</a>
-        <a href="addBooking.jsp">Create New Booking</a>
-        <a href="profile.jsp">Profile</a>
-        <a href="logout.jsp">Logout</a>
-    </div>
-    <div class="content">
-        <h1>Welcome to Mega City Cab</h1>
-        <p>Manage your bookings, view history, and update your profile.</p>
-    </div>
+    <h2>Customer Dashboard</h2>
+    <ul>
+         <li><a href="booking.jsp">Create Booking</a></li>
+         <li><a href="booking?userId=<%= user.getId() %>">View Bookings</a></li>
+         <li><a href="bill?userId=<%= user.getId() %>">Calculate Bill</a></li>
+         <li><a href="help">Help</a></li>
+         <li><a href="logout">Logout</a></li>
+    </ul>
 </body>
 </html>
 
