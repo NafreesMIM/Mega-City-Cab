@@ -1,9 +1,3 @@
-<%-- 
-    Document   : customerDashboard
-    Created on : Feb 23, 2025, 11:35:57?AM
-    Author     : Moham
---%>
-
 <%@ page import="models.User" %>
 <%
     User user = (User) session.getAttribute("user");
@@ -12,19 +6,15 @@
          return;
     }
 %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Customer Dashboard - Mega City Cab</title>
 </head>
 <body>
-    <h2>Customer Dashboard</h2>
-    <ul>
-         <li><a href="booking.jsp">Create Booking</a></li>
-         <li><a href="booking?userId=<%= user.getId() %>">View Bookings</a></li>
-         <li><a href="bill?userId=<%= user.getId() %>">Calculate Bill</a></li>
-         <li><a href="help">Help</a></li>
-         <li><a href="logout">Logout</a></li>
-    </ul>
+    <h2>Welcome, <%= user.getName() %>!</h2>
+    <p><a href="createBooking.jsp">Create a New Booking</a></p>
+    <p><a href="profile">Edit Profile</a></p>
+    <p><a href="logout">Logout</a></p>
 </body>
 </html>
-
