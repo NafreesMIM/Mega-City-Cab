@@ -1,89 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="models.User" %>
 <html>
-<head>
+  <head>
     <title>Help - Mega City Cab</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 90%;
-            max-width: 700px;
-            margin: 20px;
-        }
-
-        h2 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #007BFF;
-            border: 2px solid #007BFF;
-            padding: 8px 20px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        a:hover {
-            background-color: #007BFF;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 20px;
-            }
-
-            p {
-                font-size: 14px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            a {
-                font-size: 14px;
-                padding: 6px 16px;
-            }
-        }
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      h2 { color: #2a2a2a; }
+      .help-section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Help and Usage Guidelines</h2>
-        <p>1. Login with your registered username and password.</p>
-        <p>2. For customers, create a new booking by entering your destination and base fare.</p>
-        <p>3. For admins, use the management pages to handle bookings, vehicles, and drivers.</p>
-        <p>4. View your bookings and calculate your bill (tax is 10% and online payment discount is 5%).</p>
-        <p>5. For further assistance, contact support at <a href="mailto:support@megacitycab.com">support@megacitycab.com</a>.</p>
-        <a href="customerDashboard.jsp">Back to Dashboard</a>
-    </div>
-</body>
+  </head>
+  <body>
+    <%
+      User user = (User) session.getAttribute("user");
+      if (user == null) {
+          out.println("<p>Please log in to view help information.</p>");
+          return;
+      }
+      String role = user.getRole().toLowerCase();
+    %>
+    
+    <h2>Help &amp; Support</h2>
+    
+    <c:choose>
+      <c:when test="${role == 'customer'}">
+        <div class="help-section">
+          <h3>Customer Help</h3>
+          <ul>
+            <li><strong>Booking a Cab:</strong> Navigate to the "Book a Cab" section in your dashboard. Enter your destination and base fare to create a new booking.</li>
+            <li><strong>Viewing Bookings:</strong> Check the "My Bookings" page to see your booking details, including booking date and driver assignment status.</li>
+            <li><strong>Billing:</strong> Once a driver is assigned, view your bill by clicking on "View Bill" to see your total fare after tax and discounts.</li>
+            <li><strong>Profile Management:</strong> For updating personal details or changing your password, use the profile management options available in your account settings.</li>
+          </ul>
+        </div>
+      </c:when>
+      <c:when test="${role == 'driver'}">
+        <div class="help-section">
+          <h3>Driver Help</h3>
+          <ul>
+            <li><strong>Updating Availability:</strong> Use your dashboard to set your status as "Available" or "Not Available" to receive new assignments.</li>
+            <li><strong>Viewing Notifications:</strong> Check the "Notifications" section on your dashboard for updates regarding booking assignments and other system alerts.</li>
+            <li><strong>Driver Information:</strong> Ensure your contact and license details are up to date by editing your profile via the dashboard.</li>
+          </ul>
+        </div>
+      </c:when>
+      <c:otherwise>
+        <div class="help-section">
+          <h3>Help Information</h3>
+          <p>This help page is available only for customers and drivers.</p>
+        </div>
+      </c:otherwise>
+    </c:choose>
+    
+    <p><a href="<%= role.equals("customer") ? "customerDashboard.jsp" : "driverDashboard.jsp" %>">Back to Dashboard</a></p>
+  </body>
 </html>

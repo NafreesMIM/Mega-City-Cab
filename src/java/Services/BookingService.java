@@ -4,10 +4,19 @@
  */
 package Services;
 
+import models.Booking;
 /**
  *
  * @author Moham
  */
+
+
 public class BookingService {
-    
+    // Example: method to calculate fare or perform additional business rules.
+    public double calculateTotalFare(Booking booking) {
+        double tax = 0.10 * booking.getBaseFare();
+        double discount = 0.05 * booking.getBaseFare();
+        return booking.getBaseFare() + tax - discount;
+    }
 }
+

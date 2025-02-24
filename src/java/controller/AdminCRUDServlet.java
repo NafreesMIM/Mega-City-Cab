@@ -7,7 +7,8 @@ package controller;
 import dao.UserDAO;
 import models.User;
 import java.io.IOException;
-import jakarta.servlet.*;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -42,7 +43,6 @@ public class AdminCRUDServlet extends HttpServlet {
             String telephone = request.getParameter("telephone");
             String nic = request.getParameter("nic");
             
-            // For admin, we force the role to "admin"
             User newAdmin = new User();
             newAdmin.setUsername(username);
             newAdmin.setPassword(password);

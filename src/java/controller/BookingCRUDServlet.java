@@ -18,53 +18,48 @@ import jakarta.servlet.http.*;
  */
 
 
-
-
-
 @WebServlet("/bookingCRUD")
 public class BookingCRUDServlet extends HttpServlet {
     private final BookingDAO bookingDAO = new BookingDAO();
-
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         if(action == null) {
             action = "list";
         }
         switch(action) {
-            case "list" -> listBookings(request, response);
-            case "edit" -> showEditForm(request, response);
-            case "delete" -> deleteBooking(request, response);
-            default -> listBookings(request, response);
+            case "list":
+                listBookings(request, response);
+                break;
+            case "edit":
+                showEditForm(request, response);
+                break;
+            case "delete":
+                deleteBooking(request, response);
+                break;
+            default:
+                listBookings(request, response);
         }
     }
     
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         if(action == null) {
             action = "add";
         }
         switch(action) {
-            case "add" -> addBooking(request, response);
-            case "update" -> updateBooking(request, response);
-            default -> addBooking(request, response);
+            case "add":
+                addBooking(request, response);
+                break;
+            case "update":
+                updateBooking(request, response);
+                break;
+            default:
+                addBooking(request, response);
         }
     }
     
@@ -85,7 +80,8 @@ public class BookingCRUDServlet extends HttpServlet {
         booking.setDestination(destination);
         booking.setBookingDate(new Date());
         booking.setBaseFare(baseFare);
-        
+        // New booking initially has no driver
+        booking.setDriverId(0);
         bookingDAO.addBooking(booking);
         response.sendRedirect("bookingCRUD?action=list");
     }
@@ -115,7 +111,6 @@ public class BookingCRUDServlet extends HttpServlet {
         booking.setDestination(destination);
         booking.setBookingDate(new Date());
         booking.setBaseFare(baseFare);
-        
         bookingDAO.updateBooking(booking);
         response.sendRedirect("bookingCRUD?action=list");
     }

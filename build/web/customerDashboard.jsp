@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="models.User" %>
 <%
     User user = (User) session.getAttribute("user");
@@ -6,15 +7,21 @@
          return;
     }
 %>
-<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Customer Dashboard - Mega City Cab</title>
-</head>
-<body>
-    <h2>Welcome, <%= user.getName() %>!</h2>
-    <p><a href="createBooking.jsp">Create a New Booking</a></p>
-    <p><a href="profile">Edit Profile</a></p>
-    <p><a href="logout">Logout</a></p>
-</body>
+  </head>
+  <body>
+    <h2>Customer Dashboard</h2>
+    
+    <p>Welcome, <%= user.getName() %>!</p>
+    <ul>
+      <li><a href="booking.jsp">Book a Cab</a></li>
+      <li><a href="booking?userId=<%= user.getId() %>">View My Bookings</a></li>
+      <li><a href="bill?userId=<%= user.getId() %>">View Bill</a></li>
+      <li><a href="help">Help</a></li>
+      <li><a href="logout">Logout</a></li>
+    </ul>
+    <p style="color:green;"><%= request.getParameter("msg") != null ? request.getParameter("msg") : "" %></p>
+  </body>
 </html>

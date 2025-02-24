@@ -8,13 +8,10 @@ import dao.BookingDAO;
 import models.Booking;
 import models.User;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.http.*;
-import java.util.Date;
 
 /**
  *
@@ -22,21 +19,15 @@ import java.util.Date;
  */
 
 
+
 @WebServlet("/booking")
 public class BookingServlet extends HttpServlet {
     private final BookingDAO bookingDAO = new BookingDAO();
-
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
+    
+    // Handles booking creation by a customer
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user == null){
@@ -52,6 +43,8 @@ public class BookingServlet extends HttpServlet {
         booking.setDestination(destination);
         booking.setBookingDate(new Date());
         booking.setBaseFare(baseFare);
+        // No driver is assigned at creation; we use 0 to denote this.
+        booking.setDriverId(0);
         
         boolean result = bookingDAO.addBooking(booking);
         if(result){
@@ -62,17 +55,10 @@ public class BookingServlet extends HttpServlet {
         }
     }
     
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
+    // Displays a customer's bookings
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        // Display booking details for the logged-in user
+            throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
         request.setAttribute("bookings", bookingDAO.getBookingsByUser(userId));
         request.getRequestDispatcher("bookingDetails.jsp").forward(request, response);

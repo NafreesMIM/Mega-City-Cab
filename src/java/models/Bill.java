@@ -10,6 +10,7 @@ package models;
  */
 
 
+
 public class Bill {
     private int bookingId;
     private double baseFare;

@@ -8,7 +8,8 @@ import dao.UserDAO;
 import models.User;
 import java.io.IOException;
 import java.util.List;
-import jakarta.servlet.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -16,6 +17,8 @@ import jakarta.servlet.http.*;
  *
  * @author Moham
  */
+
+
 
 
 @WebServlet("/passwordCRUD")
@@ -46,7 +49,6 @@ public class PasswordCRUDServlet extends HttpServlet {
             String newPassword = request.getParameter("newPassword");
             UserDAO dao = new UserDAO();
             boolean updated = dao.updatePassword(userId, newPassword);
-            // You could add a message indicating success or failure here.
             response.sendRedirect("passwordCRUD?action=list");
         }
     }

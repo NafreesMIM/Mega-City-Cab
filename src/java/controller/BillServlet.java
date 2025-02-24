@@ -4,6 +4,14 @@
  */
 package controller;
 
+import dao.BookingDAO;
+import models.Booking;
+import models.Bill;
+import java.io.IOException;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 
 /**
  *
@@ -11,31 +19,13 @@ package controller;
  */
 
 
-
-import dao.BookingDAO;
-import models.Booking;
-import models.Bill;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
-import java.util.List;
-
 @WebServlet("/bill")
 public class BillServlet extends HttpServlet {
     private final BookingDAO bookingDAO = new BookingDAO();
 
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        // Calculate bill for the latest booking of the user
+            throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
         List<Booking> bookings = bookingDAO.getBookingsByUser(userId);
         if(bookings.isEmpty()){
@@ -44,8 +34,6 @@ public class BillServlet extends HttpServlet {
             return;
         }
         Booking latestBooking = bookings.get(bookings.size() - 1);
-        
-        // Calculate bill: tax = 10% of baseFare, discount = 5% of baseFare (if paying online)
         double tax = 0.10 * latestBooking.getBaseFare();
         double discount = 0.05 * latestBooking.getBaseFare();
         Bill bill = new Bill(latestBooking.getBookingId(), latestBooking.getBaseFare(), tax, discount);

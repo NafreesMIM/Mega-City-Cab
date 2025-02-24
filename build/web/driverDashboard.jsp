@@ -1,66 +1,49 @@
-<%-- 
-    Document   : driverDashboard
-    Created on : Feb 23, 2025, 3:20:36?PM
-    Author     : Moham
---%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="models.Driver" %>
+<%@ page import="models.Notification" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Booking" %>
-<%@ page import="models.User" %>
-<%
-    User user = (User) session.getAttribute("user");
-    if(user == null || !user.getRole().equalsIgnoreCase("driver")){
-         response.sendRedirect("login.jsp");
-         return;
-    }
-    List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
-%>
-<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Driver Dashboard - Mega City Cab</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin:0; padding:0; }
-        .header { background:#333; color:white; padding:15px; text-align:center; }
-        .container { width:80%; margin:20px auto; background:white; padding:20px; 
-                     box-shadow: 0px 0px 10px rgba(0,0,0,0.1); border-radius:8px; }
-        table { width:100%; border-collapse: collapse; }
-        th, td { padding:10px; border:1px solid #ddd; text-align:left; }
-        th { background:#007BFF; color:white; }
-    </style>
-</head>
-<body>
-    <div class="header">Driver Dashboard - Mega City Cab</div>
-    <div class="container">
-        <h2>Welcome, <%= user.getName() %>!</h2>
-        <h3>Your Assigned Bookings</h3>
-        <table>
-            <tr>
-                <th>Booking ID</th>
-                <th>Customer Name</th>
-                <th>Car Model</th>
-                <th>License Plate</th>
-                <th>Status</th>
-            </tr>
-            <% if(bookings != null && !bookings.isEmpty()) {
-                   for(Booking b : bookings) { %>
-                   <tr>
-                       <td><%= b.getId() %></td>
-                       <td><%= b.getCustomer().getName() %></td>
-                       <td><%= b.getCar().getModel() %></td>
-                       <td><%= b.getCar().getLicensePlate() %></td>
-                       <td><%= b.getStatus() %></td>
-                   </tr>
-            <%   }
-               } else { %>
-               <tr>
-                   <td colspan="5">No bookings assigned.</td>
-               </tr>
-            <% } %>
-        </table>
-        <br/><a href="profile">Edit Profile</a>
-        <br/><a href="logout">Logout</a>
-    </div>
-</body>
-</html>
+  </head>
+  <body>
+    <h2>Driver Dashboard</h2>
+    <%
+      // Retrieve the driver object from session stored as "driver"
+      Driver driver = (Driver) session.getAttribute("driver");
+      if(driver == null) {
+          response.sendRedirect("login.jsp");
+          return;
+      }
+      List<Notification> notifications = (List<Notification>) request.getAttribute("notifications");
+    %>
+    <p>Welcome, <%= driver.getName() %>!</p>
+    
+    <h3>Update Availability</h3>
+<p>Current Availability: <strong><%= driver.isAvailable() ? "Yes" : "No" %></strong></p>
+<form action="driverDashboard" method="post">
+  <%-- Toggle the availability: submit the opposite value --%>
+  <input type="hidden" name="available" value="<%= !driver.isAvailable() %>" />
+</form>
 
+    
+    <h3>Notifications</h3>
+    <ul>
+      <% if(notifications != null && !notifications.isEmpty()) {
+           for(Notification n : notifications) { %>
+          <li><strong><%= n.getSubject() %>:</strong> <%= n.getMessage() %> (<%= n.getTimestamp() %>)</li>
+      <%   }
+         } else { %>
+          <li>No notifications.</li>
+      <% } %>
+    </ul>
+    
+    <form action="finishTrip" method="post">
+      <input type="submit" value="Finish Trip and Mark as Available" />
+    </form>
+    
+    <p><a href="logout">Logout</a></p>
+    <p style="color:green;"><%= request.getParameter("msg") != null ? request.getParameter("msg") : "" %></p>
+    <p style="color:red;"><%= request.getParameter("error") != null ? request.getParameter("error") : "" %></p>
+  </body>
+</html>

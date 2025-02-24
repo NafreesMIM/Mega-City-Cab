@@ -2,15 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package models;
 
+import java.util.Date;
 /**
  *
  * @author Moham
  */
-
-package models;
-
-import java.util.Date;
 
 
 public class Booking {
@@ -19,54 +17,55 @@ public class Booking {
     private String destination;
     private Date bookingDate;
     private double baseFare;
+    // Use 0 to denote that no driver is assigned
+    private int driverId; 
 
     public Booking() {}
 
-    public Booking(int bookingId, int userId, String destination, Date bookingDate, double baseFare) {
+    public Booking(int bookingId, int userId, String destination, Date bookingDate, double baseFare, int driverId) {
         this.bookingId = bookingId;
         this.userId = userId;
         this.destination = destination;
         this.bookingDate = bookingDate;
         this.baseFare = baseFare;
+        this.driverId = driverId;
     }
 
     // Getters and setters
-    public int getBookingId() { return bookingId; }
-    public void setBookingId(int bookingId) { this.bookingId = bookingId; }
-    
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
-    
-    public String getDestination() { return destination; }
-    public void setDestination(String destination) { this.destination = destination; }
-    
-    public Date getBookingDate() { return bookingDate; }
-    public void setBookingDate(Date bookingDate) { this.bookingDate = bookingDate; }
-    
-    public double getBaseFare() { return baseFare; }
-    public void setBaseFare(double baseFare) { this.baseFare = baseFare; }
-
-    public void setCustomer(User customer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getBookingId() {
+        return bookingId;
     }
-
-    public void setStatus(String pending) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
-
-    public Object getCustomer() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getUserId() {
+        return userId;
     }
-
-    public Object getCar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-
-    public String getStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getDestination() {
+        return destination;
     }
-
-    public void setId(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+    public double getBaseFare() {
+        return baseFare;
+    }
+    public void setBaseFare(double baseFare) {
+        this.baseFare = baseFare;
+    }
+    public int getDriverId() {
+        return driverId;
+    }
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 }

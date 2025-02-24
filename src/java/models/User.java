@@ -17,8 +17,8 @@ public class User {
     private String name;
     private String address;
     private String telephone;
-    private String nic;        // NIC field
-    private String role;       // "admin" or "customer"
+    private String nic;   // NIC field
+    private String role;  // "admin" or "customer" (or "driver" if applicable)
 
     public User() {}
 
@@ -57,16 +57,4 @@ public class User {
     
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
-
-    public void setDriverLicense(String driverLicense) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setDrivingExperience(int drivingExperience) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
